@@ -16,7 +16,7 @@ class Solution:
             if len(s) > index + 1 and 10 <= int(s[index] + s[index+1]) <= 26:
                 count = count + self.decoder(s,index+2,memo,count) 
 
-            memo[index] = count
+        memo[index] = count
         return memo[index]
 
     def numDecodings(self, s: str) -> int:
