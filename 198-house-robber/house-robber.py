@@ -1,13 +1,20 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        n = len(nums)
-        prev1 = nums[0]
-        prev2 = 0
+        memo = {}
+        profit = 0
 
-        for i in range(2,n+1):
-            current = max(prev1,prev2+nums[i-1])
 
-            prev2 = prev1
-            prev1 = current
+        def helper(nums,memo,n):
+            if n >= len(nums):
+                return 0
+            
+            if n in memo:
+                return memo[n]
+            
+            profit = max(helper(nums,memo,n+1), helper(nums,memo,n+2) + nums[n])
+            memo[n] = profit
+            return profit
         
-        return prev1
+        return helper(nums,memo,0)
+        
+
