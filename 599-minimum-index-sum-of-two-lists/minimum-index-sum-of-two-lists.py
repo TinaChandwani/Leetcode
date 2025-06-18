@@ -1,7 +1,7 @@
 class Solution:
     def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:
         commonDict = defaultdict(int)
-        minSum = 999999
+        minSum = float('inf')
         output = []
         for i in range(len(list1)):
             commonDict[list1[i]] = i 
@@ -11,9 +11,8 @@ class Solution:
                 minIndex = i + commonDict[list2[i]]
                 if minIndex < minSum:
                     minSum = minIndex
-                    output = []
+                    output =[]
                     output.append(list2[i])
                 elif minIndex == minSum:
                     output.append(list2[i])
-        
         return output
