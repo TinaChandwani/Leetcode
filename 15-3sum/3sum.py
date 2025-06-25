@@ -14,8 +14,8 @@ class Solution:
                     k -= 1
                     while j < k and nums[j-1] == nums[j]  :
                         j += 1
-                    while k > j and nums[k+1] == nums[k]  :
-                        k -= 1
+                    # while k > j and nums[k+1] == nums[k]  :
+                    #     k -= 1
                 else:
                     if nums[j] + nums[k] < -nums[i]:
                         j += 1
