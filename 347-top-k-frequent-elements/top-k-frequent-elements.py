@@ -1,5 +1,7 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        if k == len(nums):
+            return list(set(nums))
         topDict = defaultdict(int)
         answer = []
         bucket = [[] for _ in range(len(nums) + 1)]
