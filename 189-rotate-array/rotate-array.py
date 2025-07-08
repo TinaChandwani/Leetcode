@@ -9,31 +9,10 @@ class Solution:
         2) reverse from 0 -> ((k%n) -1 )
         3) reverse from (k%n) -> end of array
         '''
+        
         n = len(nums)
-        rotateTimes = k % n
-        # Reversing the entire array
-        i = 0
-        j = n - 1
-        while i < j:
-            nums[i],nums[j] = nums[j], nums[i]
-            i += 1
-            j -= 1
+        k = k % n
+        if k != 0:
+            nums[:k],nums[k:] = nums[-k:],nums[:-k]
         
-        # Reverse the First Part
-        i = 0
-        j = rotateTimes - 1
-
-        while i < j:
-            nums[i], nums[j] = nums[j], nums[i]
-            i += 1
-            j -= 1
-        
-        # Reverse the Second Part
-        i = rotateTimes
-        j = n - 1
-
-        while i < j:
-            nums[i], nums[j] = nums[j], nums[i]
-            i += 1
-            j -= 1
         
