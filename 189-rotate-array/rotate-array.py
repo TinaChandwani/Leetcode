@@ -3,31 +3,37 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        '''
+        Basically the Algorithm is 
+        1) First Reverse the entire Array
+        2) reverse from 0 -> ((k%n) -1 )
+        3) reverse from (k%n) -> end of array
+        '''
         n = len(nums)
-        k = k % n
-        store_k = k
+        rotateTimes = k % n
+        # Reversing the entire array
+        i = 0
         j = n - 1
-        i = 0 
         while i < j:
-            nums[i],nums[j] = nums[j],nums[i]
-            j = j - 1
-            i = i + 1
-
-        # Reverse in the array
-        left = 0
-        right  = store_k - 1
-
-
-        while left < right:
-            nums[left],nums[right] = nums[right],nums[left]
-            right = right - 1
-            left = left + 1
+            nums[i],nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
         
-        left = store_k
-        right = n - 1
+        # Reverse the First Part
+        i = 0
+        j = rotateTimes - 1
+
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
         
-        while left < right:
-            nums[left],nums[right] = nums[right],nums[left]
-            right = right - 1
-            left = left + 1
+        # Reverse the Second Part
+        i = rotateTimes
+        j = n - 1
+
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
         
