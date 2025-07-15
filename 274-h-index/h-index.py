@@ -7,15 +7,21 @@ class Solution:
         1) Sort the array in decending order
         2) check if citations[i] >= i + 1 (array is 0 indexed)
         3) update hindex accordlingly 
+        OR
+        1) Create a Dictionary
+        2) Update the frequency count for each number
+        3) Iterate Backwards and count until it surpasses the i
         """
 
-        citations.sort(reverse = True)
         n = len(citations)
-        h_index = 0
+        hDict = defaultdict(int)
+        total = 0
 
-        for i in range(n):
-            if citations[i] >= i + 1:
-                h_index = i + 1
-            else:
-                break
-        return h_index
+        for i in citations:
+            hDict[min(i,n)] += 1
+        
+        for h in range(n,-1,-1):
+            total += hDict[h]
+            if total >= h:
+                return h
+        
