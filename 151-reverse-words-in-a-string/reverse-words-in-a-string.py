@@ -3,10 +3,10 @@ class Solution:
         s = s.strip()
         arr = s.split(" ")
         n = len(arr)
-        ans = ""
+        ans = []
         for i in range(n-1,-1,-1):
             if arr[i] == "":
                 continue
-            ans  = ans + " " + arr[i]
-        ans = ans.strip()
+            ans.append(arr[i])
+        ans = " ".join(ans)
         return ans
