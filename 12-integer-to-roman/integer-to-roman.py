@@ -4,9 +4,7 @@ class Solution:
         ans = ""
 
         for n, symbol in intToRomanDict.items():
-            while n <= num:
-                ans += symbol
-                diff = num - n
-                num = diff
+            count = num // n
+            ans += (symbol * count)
+            num = num % n
         return ans
-            
