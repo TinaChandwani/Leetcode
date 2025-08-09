@@ -8,7 +8,7 @@ class Solution:
             else:
                 if not stack:
                     return False
-                elif matching[i] == stack[-1]:
+                elif stack[-1] == matching[i]:
                     stack.pop()
                 else:
                     return False
