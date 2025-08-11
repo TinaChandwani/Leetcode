@@ -10,6 +10,7 @@ class Solution:
         q = deque()
         visit = set(beginWord)
         q.append([beginWord,0]) # [word,number of seq]
+        alphabet = [chr(c) for c in range(ord('a'), ord('z') + 1)]
 
         while q:
             word,seq = q.popleft()
@@ -17,8 +18,8 @@ class Solution:
                 return seq + 1
             # Find the next word
             for i in range(len(word)):
-                for letter in range(ord('a'),ord('z') + 1):
-                    new_word = word[:i] + chr(letter) + word[i+1:]
+                for letter in alphabet:
+                    new_word = word[:i] + letter + word[i+1:]
                     if new_word in wordList and new_word not in visit:
                         q.append([new_word,seq+1])
                         visit.add(new_word)
