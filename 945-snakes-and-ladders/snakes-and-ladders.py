@@ -20,8 +20,8 @@ class Solution:
             s, m = q.popleft()
             for i in range(1,7):
                 next_s = s + i
-                if next_s > length * length: 
-                    continue
+                # if next_s > length * length: 
+                #     continue
                 r,c = cal_row_col(next_s)
                 if board[r][c] != -1:
                     next_s = board[r][c]
