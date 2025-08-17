@@ -8,26 +8,14 @@ class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
-        q_left = deque()
-        q_right = deque()
-        q_left.append(root.left)
-        q_right.append(root.right)
-        while q_left and q_right:
-            ql = q_left.popleft()
-            qr = q_right.popleft()
-            if not ql and not qr:
-                continue
-            if not ql or not qr or (ql.val != qr.val):
+        def dfs(left,right):
+            if not left and not right:
+                return True
+            if not left or not right or left.val != right.val:
                 return False
-
-            q_left.append(ql.left)
-            q_left.append(ql.right)
-            q_right.append(qr.right)
-            q_right.append(qr.left)
-        return True
             
-
-
-
-
-
+            l = dfs(left.right,right.left)
+            r = dfs(left.left, right.right)
+            return l and r
+        
+        return dfs(root.left,root.right)
