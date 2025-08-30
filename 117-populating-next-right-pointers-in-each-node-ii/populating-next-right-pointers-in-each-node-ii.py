@@ -11,24 +11,21 @@ class Node:
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         '''
-        This is the BFS Approach
-        Time -> O(n)
-        Space -> O(n)
+        This is the Follow Up question using extra space complexity
         '''
         if not root:
             return None
-        
-        q = deque()
-        q.append(root)
-        while q:
-            lq = len(q)
+        head = root
+        while head:
             dummy = Node(0)
-            for i in range(lq):
-                node = q.popleft()
-                dummy.next = node
-                dummy = dummy.next
-                if node.left:
-                    q.append(node.left)
-                if node.right:
-                    q.append(node.right)
+            tail = dummy
+            while head:
+                if head.left:
+                    tail.next = head.left
+                    tail = tail.next
+                if head.right:
+                    tail.next = head.right
+                    tail = tail.next
+                head = head.next
+            head = dummy.next
         return root
