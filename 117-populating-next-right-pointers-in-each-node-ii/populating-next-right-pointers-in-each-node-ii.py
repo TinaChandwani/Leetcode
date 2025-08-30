@@ -10,6 +10,11 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
+        '''
+        This is the BFS Approach
+        Time -> O(n)
+        Space -> O(n)
+        '''
         if not root:
             return None
         
