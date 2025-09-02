@@ -13,17 +13,14 @@ class Solution:
         if not root:
             return None
         head = root
-        while head:
-            dummy = Node(0)
-            tail = dummy
-            while head:
-                if head.left:
-                    tail.next = head.left
-                    tail = tail.next
-                if head.right:
-                    tail.next = head.right
-                    tail = tail.next
-                head = head.next
-            head = dummy.next
+        while head and head.left:
+            curr = head
+            while curr:
+                if curr.left:
+                    curr.left.next = curr.right
+                if curr.next:
+                    curr.right.next = curr.next.left
+                curr = curr.next
+            head = head.left
         return root
         
