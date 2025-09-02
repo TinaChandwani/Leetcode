@@ -17,16 +17,34 @@ class Solution:
         Negative values should not impact the logic
         No partial sums
         '''
-        # Recursive Approach
+        # # Recursive Approach
+        # if not root:
+        #     return False
+        
+        # if not root.left and not root.right and root.val == targetSum:
+        #     return True
+        
+        # rem = targetSum - root.val
+        # left = self.hasPathSum(root.left,rem)
+        # right = self.hasPathSum(root.right,rem)
+
+        # return left or right
+
+        # Iterative Approach using DFS
         if not root:
             return False
-        
         if not root.left and not root.right and root.val == targetSum:
             return True
-        
-        rem = targetSum - root.val
-        left = self.hasPathSum(root.left,rem)
-        right = self.hasPathSum(root.right,rem)
+        q = deque()
+        q.append([root,root.val])
 
-        return left or right
+        while q:
+            node,s = q.popleft()
+            if not node.left and not node.right and s == targetSum:
+                return True
+            if node.left:
+                q.append([node.left, s + node.left.val])
+            if node.right:
+                q.append([node.right, s + node.right.val])
+        return False
         
