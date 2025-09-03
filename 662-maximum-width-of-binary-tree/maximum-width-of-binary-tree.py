@@ -14,7 +14,6 @@ class Solution:
 
         while q:
             lenQ = len(q)
-            base = q[0][1]
             for i in range(lenQ):
                 curr_node, curr_index = q.popleft()
                 if i == 0:
@@ -22,10 +21,8 @@ class Solution:
                 if i == lenQ-1:
                     last = curr_index
                 if curr_node.left:
-                    # print("Curr->Val: ", curr_node.val, "Index: ",(curr_index-base)*2 + 1)
                     q.append((curr_node.left, curr_index*2 + 1))
                 if curr_node.right:
-                    # print("Curr->Val: ", curr_node.val, "Index: ",(curr_index-base)*2 + 2)
                     q.append((curr_node.right, curr_index*2 + 2))
                 maxWidth = max(maxWidth, last-first+1)
         
