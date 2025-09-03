@@ -6,29 +6,27 @@
 #         self.right = right
 class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        '''
-        Here We are going to using the levelmorder dfs approach
-        The idea is based on indexing the first and last node of each level and maximum width = last - first + 1
-        '''
-        if not root:
-            return 0
-        ans = 0
+        maxWidth = 0
+        
         q = deque()
-        q.append([root,0]) # Indexing should start with 0
+        index = 0
+        q.append((root, index))
+
         while q:
             lenQ = len(q)
-            base = q[0][1]
             for i in range(lenQ):
-                node, index = q.popleft()
-                curr_id = index - base
+                curr_node, curr_index = q.popleft()
                 if i == 0:
-                    first = curr_id
-                if i == lenQ - 1:
-                    last = curr_id
-                if node.left:
-                    q.append([node.left, 2 * curr_id + 1])
-                if node.right:
-                    q.append([node.right, 2 * curr_id + 2])
-            ans = max(ans,last - first + 1)
-        return ans
+                    first = curr_index
+                if i == lenQ-1:
+                    last = curr_index
+                if curr_node.left:
+                    print("Curr->Val: ", curr_node.val, "Index: ",curr_index*2 + 1)
+                    q.append((curr_node.left, curr_index*2 + 1))
+                if curr_node.right:
+                    print("Curr->Val: ", curr_node.val, "Index: ",curr_index*2 + 2)
+                    q.append((curr_node.right, curr_index*2 + 2))
+                maxWidth = max(maxWidth, last-first+1)
+        
+        return maxWidth
                 
