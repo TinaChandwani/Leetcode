@@ -12,19 +12,33 @@ class Solution:
         2) Boundaries (left and right)
         '''
         # 1st Approach -> Inorder
-        ans = []
-        def inorder(node):
-            nonlocal ans
+        # ans = []
+        # def inorder(node):
+        #     nonlocal ans
+        #     if not node:
+        #         return 
+        #     inorder(node.left)
+        #     ans.append(node.val)
+        #     inorder(node.right)
+        #     return ans
+        # inorder(root)
+        # for i in range(len(ans)-1):
+        #     if ans[i+1] <= ans[i]:
+        #         return False
+        # return True
+
+
+        # Boundaries
+        def boundary(node,left,right):
             if not node:
-                return 
-            inorder(node.left)
-            ans.append(node.val)
-            inorder(node.right)
-            return ans
-        inorder(root)
-        for i in range(len(ans)-1):
-            if ans[i+1] <= ans[i]:
+                return True
+            if not(left < node.val < right):
                 return False
-        return True
+            return boundary(node.left,left,node.val) and boundary(node.right,node.val,right)
+        return boundary(root,float('-inf'),float('inf'))
+
+
+
+
 
         
