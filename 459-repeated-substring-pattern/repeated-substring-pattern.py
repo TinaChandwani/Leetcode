@@ -17,8 +17,7 @@ class Solution:
                 else:
                     prev = lps[prev-1]
         k = lps[-1]
-        to_check = m - k
         if k > 0:
-            if m % to_check == 0:
+            if m % (m-k) == 0:
                 return True
         return False
