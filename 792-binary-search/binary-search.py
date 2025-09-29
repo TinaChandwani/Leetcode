@@ -1,18 +1,16 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        # Recursive
-        def bs(l,r):
-            print(f'l {l} and r {r}')
-            if l > r:
-                return -1
-            m = (l + r)// 2
-            print(f'm {m}')
+        #iterative
+        n = len(nums)
+        l = 0
+        r = n - 1
+        while r >= l:
+            m = (l + r) // 2
             if nums[m] == target:
                 return m
             elif target > nums[m]:
-                return bs(m+1,r)
+                l = m + 1
             else:
-                return bs(l,m-1)
-        
-        return bs(0,len(nums)-1)
+                r = m - 1
+        return -1
         
