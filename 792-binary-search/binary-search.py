@@ -1,23 +1,18 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        if len(nums) == 0 :
-            return -1
-        left = 0
-        right = len(nums) - 1
-
-        def helper(left,right,nums):
-            if left > right:
+        # Recursive
+        def bs(l,r):
+            print(f'l {l} and r {r}')
+            if l > r:
                 return -1
-            middle = (right + left) // 2
-
-            if nums[middle] == target:
-                return middle
-            
-            if nums[middle] > target:
-                return helper(left,middle - 1,nums)
+            m = (l + r)// 2
+            print(f'm {m}')
+            if nums[m] == target:
+                return m
+            elif target > nums[m]:
+                return bs(m+1,r)
             else:
-                return helper(middle + 1,right,nums)
-            
+                return bs(l,m-1)
         
-        ans = helper(left,right,nums)
-        return ans
+        return bs(0,len(nums)-1)
+        
