@@ -18,8 +18,8 @@ class Solution:
         start = 0
         end = len(nums) - 1
         while start <= end:
-            m = (start + end) // 2
-            pivot = nums[m]
+            # m = (start + end) // 2
+            pivot = nums[end]
             small_end = start
             current = start
             large_end = end
