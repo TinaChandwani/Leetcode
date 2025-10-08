@@ -14,11 +14,11 @@ class KthLargest:
 
     def add(self, val: int) -> int:
         # This addds the new score and returns the highest element always
-       
         if len(self.heap) < self.k:
             heapq.heappush(self.heap,val)
         elif val > self.heap[0]:
-            heapq.heapreplace(self.heap,val)
+            heapq.heappop(self.heap)
+            heapq.heappush(self.heap,val)
         return self.heap[0]
 
 # Your KthLargest object will be instantiated and called as such:
