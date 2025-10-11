@@ -3,6 +3,8 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+        if not board or not board[0]:
+            return
         q = deque()
         m,n =  len(board),len(board[0])
         visited = [[0 for _ in range(n)] for _ in range(m)]
