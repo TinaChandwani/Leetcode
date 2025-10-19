@@ -1,19 +1,19 @@
 class NumArray:
-
+    '''
+    Follow Up - If I want to get sumRange in O(1) every call
+    '''
     def __init__(self, nums: List[int]):
-        self.ans = 0
-        self.nums = nums
-        
+        self.prefix = [0]
+        self.prefix_sum = 0
+        for i in nums:
+            self.prefix_sum += i
+            self.prefix.append(self.prefix_sum)
 
     def sumRange(self, left: int, right: int) -> int:
-        if right < left:
+        if left > right:
             return None
-        self.ans = 0
-        while left <= right:
-            self.ans += self.nums[left]
-            left += 1
-        return self.ans
 
+        return self.prefix[right + 1] - self.prefix[left]
         
 
 
