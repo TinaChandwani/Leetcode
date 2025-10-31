@@ -3,6 +3,10 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
+        '''
+        Time Complexity :- O(mn) and Space Complexity -> O(m+n)
+        '''
+
         zrows = set()
         zcols = set()
         m = len(matrix) # rows
