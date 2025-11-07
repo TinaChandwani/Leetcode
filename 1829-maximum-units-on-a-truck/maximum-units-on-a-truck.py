@@ -5,7 +5,7 @@ class Solution:
         i = 0
         units = 0
         remain = truckSize
-        while i < n :
+        while i < n and remain != 0:
             box = boxTypes[i][0]
             unit = boxTypes[i][1]
             print(f'at i {i} box {box} and unit {unit}')
