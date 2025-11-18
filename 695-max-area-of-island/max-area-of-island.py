@@ -1,7 +1,11 @@
 from collections import deque
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        q = deque()
+        '''
+        Time Complexity : O(m * n) -> the two for loops visits every cell once
+        Space Complexity : O(m * n) -> the whole grid is land
+        '''
+        
         m = len(grid) # rows
         n = len(grid[0]) # cols
         visit = set()
@@ -11,6 +15,7 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 1 :
+                    q = deque()
                     q.append((i,j))
                     count = 1
                     while q:
