@@ -3,6 +3,14 @@ class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         '''
         Time Complexity : O(m * n) -> the two for loops visits every cell once
+        Why not more than O(m × n)?
+        Because:
+        You never reprocess a visited cell
+        Each cell causes at most 1 enqueue, 1 dequeue, and 4 neighbor checks
+        Those are all constant-time operations (O(1) per cell)
+        So BFS contributes:
+        O(1) * (m × n cells) = O(m × n)
+
         Space Complexity : O(m * n) -> the whole grid is land
         '''
         
