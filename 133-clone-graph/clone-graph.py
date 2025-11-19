@@ -9,22 +9,21 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        '''
-        you need to create a hashmap[original] = clone
-        '''
         if not node:
             return None
-        adj = {}
         q = deque()
+        # Create a cloned graph which will have the ans
+        clones = {}
+        clones[node] = Node(node.val)
         q.append(node)
-        adj[node] = Node(node.val)
-
+        visit = set()
         while q:
             n = q.popleft()
             for nei in n.neighbors:
-                if nei not in adj:
-                    new_node = Node(nei.val)
-                    adj[nei] = new_node
+                if nei not in visit:
+                    clones[nei] = Node(nei.val)
                     q.append(nei)
-                adj[n].neighbors.append(adj[nei])
-        return adj[node]
+                    visit.add(nei)
+                clones[n].neighbors.append(clones[nei])
+        return clones[node]
+            
