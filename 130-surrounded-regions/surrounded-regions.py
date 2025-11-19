@@ -3,8 +3,6 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        if not board or not board[0]:
-            return
         q = deque()
         m,n =  len(board),len(board[0])
         visited = [[0 for _ in range(n)] for _ in range(m)]
@@ -23,7 +21,7 @@ class Solution:
             r,c = q.pop()
             for row,col in [(r,c+1),(r+1,c),(r,c-1),(r-1,c)]:
                 if 0<=row<m and 0<=col<n:
-                    if visited[row][col] == 0 or visited[row][col] == 2 and board[row][col] == "O" :
+                    if visited[row][col] == 2 and board[row][col] == "O" :
                         visited[row][col] = 1
                         q.append((row,col))
         
