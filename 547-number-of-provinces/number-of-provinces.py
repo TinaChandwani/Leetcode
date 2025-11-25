@@ -32,8 +32,8 @@ class Solution:
                     union(i,j)
         
         roots = set()
+        # COunts the number of ultimate parent of all the nodes
         # Count the number of provinces
         for i in range(n):
             roots.add(find(i))
-        
         return len(roots)
