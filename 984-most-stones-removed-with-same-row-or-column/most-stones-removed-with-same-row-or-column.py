@@ -1,39 +1,32 @@
 class Solution:
     def removeStones(self, stones: List[List[int]]) -> int:
         '''
-        Solve using Union Find
-        Union Find is used to see if two components belong to the 
-        same group
+        Solving using Union Find in O(N) time complexity
+
         '''
-        n = len(stones)     
-        parent = [i for i in range(n)]
-        
-        print(f'parent {parent}')
+        parent = {}
 
         def find(x):
-            while x != parent[x]:
-                x = find(parent[x])
+            if x not in parent:
+                parent[x] = x
+            if parent[x] != x:
+                parent[x] = find(parent[x])
             return parent[x]
         
         def union(x,y):
-            x_root = find(x)
-            y_root = find(y)
-            if x_root == y_root:
+            root_x = find(x)
+            root_y = find(y)
+            if root_x == root_y:
                 return
             else:
-                parent[y_root] = x_root
-    
-        for i in range(n):
-            u,v = stones[i]
-            for j in range(i+1,n):
-                u1,v1 = stones[j]
-                if u1 == u or v == v1:
-                    union(i,j)
-            
-        root = set()
-        for i in range(n):
-            root.add(find(i))
+                parent[root_y] = root_x
         
-        c = len(root)
-        return n - c
+        for i in stones:
+            u = i[0]
+            v = i[1]
+            union(('r',u),('c',v))
         
+        roots = set()
+        for i in range(len(stones)):
+            roots.add(find(('r',stones[i][0])))
+        return len(stones) - len(roots)
