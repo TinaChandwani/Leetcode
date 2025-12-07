@@ -21,7 +21,7 @@ class Solution:
             
             q = deque()
             q.append(start)
-            color[start] = 1
+            color[start] = 0
 
             while q:
                 node = q.pop()
