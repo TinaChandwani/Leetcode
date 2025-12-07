@@ -3,6 +3,13 @@ class Solution:
         '''
         IF you want to color the graph using two colors =>
         No adjacent colors having the same colors
+
+        Time Complexity:
+        1. Each node is processed at most once
+        2. Each edge is checked at most twice (u ->v and v ->u in 
+        adj list)
+        --> O(V+E)
+        DFS
         '''
         # Red = 1 white = 0
         n = len(graph)
@@ -24,7 +31,7 @@ class Solution:
             color[start] = 0
 
             while q:
-                node = q.pop()
+                node = q.popleft()
                 for i in adj[node]:
                     if color[i] == -1:
                         # Not visited, assign color and add in queue
