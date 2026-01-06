@@ -1,38 +1,35 @@
 class RandomizedSet:
 
     def __init__(self):
-        self.dict1 = {}
-        self.arr1 = list()
+        self.rDict = defaultdict(int)
+        self.arr = list()
         
 
     def insert(self, val: int) -> bool:
-        if val not in self.dict1:
-            self.arr1.append(val)
-            self.dict1[val] = len(self.arr1) - 1
-            return True
-        return False
-
-
-
-    def remove(self, val: int) -> bool:
-        if val not in self.dict1:
+        if val in self.rDict:
             return False
-        index = self.dict1[val]
-        last_ele = self.arr1[-1]
-
-        # Swap element at the arr1[index] to last element
-        self.arr1[index] = last_ele
-        self.dict1[last_ele] = index
-
-        # Delete the last element in the array and from dictionary
-        self.arr1.pop()
-        del self.dict1[val]
+        self.arr.append(val)
+        self.rDict[val] = len(self.arr) - 1
         return True
         
+    def remove(self, val: int) -> bool:
+        if val not in self.rDict:
+            return False
+        last_ele = self.arr[-1]
+        index = self.rDict[val]
+        # Swap two elements
+        self.arr[index] = last_ele
+        self.rDict[last_ele] = index
+
+        # Delete from arr and dictionary
+        del self.rDict[val]
+        self.arr.pop()
+        return True
 
     def getRandom(self) -> int:
-        return self.arr1[random.randint(0,len(self.arr1) - 1)]
+        return random.choice(self.arr)
 
+        
 
 
 # Your RandomizedSet object will be instantiated and called as such:
