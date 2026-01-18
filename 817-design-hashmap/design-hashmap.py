@@ -22,7 +22,6 @@ class MyHashMap:
         index = self.getKey(key)
         for k,v in self.hashMap[index]:
             if k == key:
-                print(self.hashMap[index])
                 return v
         return -1
         
