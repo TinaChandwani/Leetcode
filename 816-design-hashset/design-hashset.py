@@ -26,7 +26,7 @@ class MyHashSet:
     '''
 
     def __init__(self):
-        self.buckets = 1009
+        self.buckets = 1000
         self.hashSet = [[] for i in range(self.buckets)]
     
     def getHashKey(self,key: int):
