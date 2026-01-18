@@ -28,11 +28,10 @@ class MyHashMap:
 
     def remove(self, key: int) -> None:
         index = self.getKey(key)
-        if len(self.hashMap[index]) > 0:
-            for i in range(len(self.hashMap[index])):
-                if self.hashMap[index][i][0] == key:
-                    del self.hashMap[index][i]
-                    return
+        for i in range(len(self.hashMap[index])):
+            if self.hashMap[index][i][0] == key:
+                del self.hashMap[index][i]
+                return
                 
         
 
