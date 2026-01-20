@@ -56,18 +56,7 @@ class LRUCache:
             # Update the value of that node and put it in front
             node = self.cache[key]
             node.val = value
-            if node.next:
-                node.next.prev = node.prev
-            else:
-                self.tail = node.prev
-            node.prev.next = node.next
-            node.prev = self.head
-            node.next = self.head.next
-            if self.head.next:
-                self.head.next.prev = node
-            else:
-                self.tail = node
-            self.head.next = node
+            v = self.get(key)
 
 
 
