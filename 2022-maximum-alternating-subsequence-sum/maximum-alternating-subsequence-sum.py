@@ -1,18 +1,14 @@
 class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
+        '''
+        Bottom Up Approach
+        '''
         n = len(nums)
-        memo = [[-1] * 2 for _ in range(n+1)]
-        def solve(n,flag):
-            if n >= len(nums):
-                return 0
-            if memo[n][flag] == -1:
-                skip = solve(n+1,flag)
-                val = nums[n]
-                if flag == 1:
-                    val = -val
-                    take = val + solve(n+1,0)
-                else:
-                    take = val + solve(n+1,1)
-                memo[n][flag] =  max(skip,take)
-            return memo[n][flag]
-        return solve(0,0)
+        dp = [[0,0] for _ in range(n+1)]
+        even,odd = 0,1
+        dp[0][even] = 0
+        dp[0][odd] = nums[0]
+        for i in range(1,n):
+            dp[i][even] = max(dp[i-1][odd] - nums[i],dp[i-1][even])
+            dp[i][odd] = max(dp[i-1][even] + nums[i],dp[i-1][odd])
+        return max(dp[n-1][even],dp[n-1][odd])
