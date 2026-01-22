@@ -1,17 +1,15 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         '''
-        Top Down (recursion + memoization)
+        Bottom Up Approach
         '''
-        self.robDict = {}
-        def solve(nums,i):
-            if i >= len(nums):
-                return 0
-            if i in self.robDict:
-                return self.robDict[i]
-            else:
-                steal = nums[i] + solve(nums,i+2)
-                skip = solve(nums,i+1)
-                self.robDict[i] = max(steal,skip)
-                return self.robDict[i]
-        return solve(nums,0)
+        n = len(nums)
+        if n == 0:
+            return 0
+        dp = [0] * (n+1) 
+        dp[1] = nums[0]
+        for i in range(2,n+1):
+            steal = nums[i-1] + dp[i-2]
+            skip = dp[i-1]
+            dp[i] = max(steal,skip)
+        return dp[n]
