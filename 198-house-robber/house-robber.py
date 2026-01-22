@@ -1,20 +1,17 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        memo = {}
-        profit = 0
-
-
-        def helper(nums,memo,n):
-            if n >= len(nums):
+        '''
+        Top Down (recursion + memoization)
+        '''
+        self.robDict = {}
+        def solve(nums,i):
+            if i >= len(nums):
                 return 0
-            
-            if n in memo:
-                return memo[n]
-            
-            profit = max(helper(nums,memo,n+1), helper(nums,memo,n+2) + nums[n])
-            memo[n] = profit
-            return profit
-        
-        return helper(nums,memo,0)
-        
-
+            if i in self.robDict:
+                return self.robDict[i]
+            else:
+                steal = nums[i] + solve(nums,i+2)
+                skip = solve(nums,i+1)
+                self.robDict[i] = max(steal,skip)
+                return self.robDict[i]
+        return solve(nums,0)
