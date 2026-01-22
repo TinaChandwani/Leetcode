@@ -1,14 +1,21 @@
 class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
         '''
-        Bottom Up Approach
+        Constant Space Complexity + Greedy Approach
+        The first picked element is always index 0 (even -> +)
+        second picked element is index 1 (odd -> -)
+        3 choices
+        1) skip
+        2) take it as +
+        3) take it as -
+        but for 2 and 3 the rule is:
+            1) we can only take + if previous was -
+            2) we can only take - if previous was +
+        The ans will be even because alternating sum will always start with +
         '''
-        n = len(nums)
-        dp = [[0,0] for _ in range(n+1)]
-        even,odd = 0,1
-        dp[0][even] = 0
-        dp[0][odd] = nums[0]
-        for i in range(1,n):
-            dp[i][even] = max(dp[i-1][odd] - nums[i],dp[i-1][even])
-            dp[i][odd] = max(dp[i-1][even] + nums[i],dp[i-1][odd])
-        return max(dp[n-1][even],dp[n-1][odd])
+        even, odd = 0,0
+        for i in nums:
+            new_even = max(even,odd + i)
+            new_odd = max(odd, even - i)
+            even,odd = new_even,new_odd
+        return even
