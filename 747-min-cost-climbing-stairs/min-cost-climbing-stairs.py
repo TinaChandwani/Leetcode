@@ -1,12 +1,14 @@
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        memo = {}
-        def solve(i):
-            if i >= len(cost):
-                return 0
-            if i not in memo:
-                minCost = min(solve(i+2),solve(i+1))
-                take = cost[i] + minCost
-                memo[i] = take
-            return memo[i]
-        return min(solve(0),solve(1))
+        '''
+        Bootom Up Approach
+        '''
+        n = len(cost)
+        if n == 1:
+            return cost[0]
+        dp = [0] * (n+1)
+        dp[1] = cost[0]
+        for i in range(2,n+1):
+            dp[i] = cost[i-1] + min(dp[i-1],dp[i-2])
+        return min(dp[n],dp[n-1])
+        
