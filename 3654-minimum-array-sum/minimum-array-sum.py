@@ -9,23 +9,17 @@ class Solution:
                 return 0
             # Case 0: DO NOTHING
             result = nums[i] + solve(k,op1,op2,i+1)
-            key = (i,op1,op2)
-            memo[key] = result
             # Case 1: Apply only op1
             if op1 > 0:
                 newValue = (nums[i] + 1) // 2
                 onlyOp1 = newValue + solve(k,op1-1,op2,i+1)
                 result = min(result,onlyOp1)
-                key = (i,op1,op2)
-                memo[key] = result
             
             # Case 2: Apply only op2
             if (op2 > 0) and nums[i] >= k:
                 newVal = nums[i] - k
                 onlyOp2 = newVal + solve(k,op1,op2-1,i+1)
                 result = min(result,onlyOp2)
-                key = (i,op1,op2)
-                memo[key] = result
             
             # Case 3: Apply op1 -> op2
             if op1 > 0 and op2 > 0:
@@ -34,8 +28,6 @@ class Solution:
                     new2 = new - k
                     n = new2 + solve(k,op1-1,op2-1,i+1)
                     result = min(result,n)
-                    key = (i,op1,op2)
-                    memo[key] = result
             
             # Case 4: Apply op2 -> op1:
             if op1 > 0 and op2 > 0 and nums[i] >= k:
@@ -43,8 +35,7 @@ class Solution:
                 n2 = (n1 + 1) // 2
                 n3 = n2 + solve(k,op1-1,op2-1,i+1)
                 result = min(result,n3)
-                key = (i,op1,op2)
-                memo[key] = result
+            memo[key] = result
             
             return memo[key]
         
