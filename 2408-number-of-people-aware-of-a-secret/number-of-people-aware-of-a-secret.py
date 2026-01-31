@@ -1,6 +1,7 @@
 class Solution:
     def solve(self,day,memo,forget,delay):
-        # Returns no of people knows the secret till day n
+        # Returns no of people knows the secret on day "day"
+        M =  10**9 + 7
         if day == 1:
             return 1
         if day in memo:
@@ -9,7 +10,7 @@ class Solution:
         start = max(1, day - forget + 1)
         end = day - delay + 1
         for i in range(start,end):
-            result += self.solve(i,memo,forget,delay)
+            result = (result + self.solve(i,memo,forget,delay)) % M
         memo[day] = result
         return memo[day]
     def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
