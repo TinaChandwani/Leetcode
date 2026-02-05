@@ -1,28 +1,22 @@
 class Solution:
-    def solve(self,day,memo,forget,delay):
-        # Returns no of people knows the secret on day "day"
-        M =  10**9 + 7
-        if day == 1:
-            return 1
-        if day in memo:
-            return memo[day]
-        result = 0
-        start = max(1, day - forget + 1)
-        end = day - delay + 1
-        for i in range(start,end):
-            result = (result + self.solve(i,memo,forget,delay)) % M
-        memo[day] = result
-        return memo[day]
     def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
-        M =  10**9 + 7
-        memo = {}
-        total = 0
+        '''
+        Write Bottom up solution
+        [n-forget + 1, n - delay + 1]
+        '''
+        dp = [-1] * (n+1)
+        M = (10**9) + 7
+        dp[1] = 1
+        for day in range(2,n+1):
+            count = 0
+            start = max(1, day - forget + 1)
+            end = day - delay + 1
+            for prev in range(start,end):
+                count = (count + dp[prev]) % M 
+            dp[day] = count
         start = max(1,n-forget+1)
         end = n + 1
+        total = 0
         for d in range(start,end):
-            total = (total + self.solve(d,memo,forget,delay)) % M
+            total = (total + dp[d]) % M
         return total
-
-
-       
-
