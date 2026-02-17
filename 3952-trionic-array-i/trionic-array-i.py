@@ -1,0 +1,22 @@
+class Solution:
+    def isTrionic(self, nums: List[int]) -> bool:
+        '''
+        Solve using linear iteration
+        '''
+        n = len(nums)
+        i = 0
+        while i+1 < n and nums[i] < nums[i+1]:
+            i += 1
+        if i == 0 or i == n-1:
+            return False
+        while i+1 < n and nums[i] > nums[i+1]:
+            i += 1
+        if i == n-1:
+            return False
+        while i+1 < n and nums[i] < nums[i+1]:
+            i += 1
+        
+        if i == n-1:
+            return True
+        else:
+            return False
