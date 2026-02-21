@@ -19,11 +19,5 @@ class Solution:
                 elif fives >= 3:
                     fives -= 3
                 else:
-                    return False
-                
-                
-        if fives < 0 or tens < 0:
-            return False
-        else:
-            return True
-        
+                    return False     
+        return True
