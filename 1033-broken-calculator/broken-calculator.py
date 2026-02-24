@@ -1,8 +1,10 @@
 class Solution:
     def brokenCalc(self, startValue: int, target: int) -> int:
-        if startValue >= target:
-            return (startValue - target)
-        elif target % 2 == 0:
-            return 1+ self.brokenCalc(startValue,target // 2)
-        else:
-            return 1+ self.brokenCalc(startValue,(target+1) )
+        steps = 0
+        while startValue < target:
+            if target % 2 == 0:
+                target //= 2
+            else:
+                target += 1
+            steps += 1
+        return steps + (startValue-target)
