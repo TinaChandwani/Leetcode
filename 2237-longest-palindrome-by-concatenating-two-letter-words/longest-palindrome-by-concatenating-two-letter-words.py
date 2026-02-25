@@ -11,9 +11,7 @@ class Solution:
             reverse = j[::-1]
             if j != reverse:
                 # ab -> ba
-                if reverse not in pDict:
-                    continue
-                else:
+                if reverse in pDict:
                     if pDict[reverse] > 0 and pDict[j] > 0:
                         pDict[j] -= 1
                         pDict[reverse] -= 1
