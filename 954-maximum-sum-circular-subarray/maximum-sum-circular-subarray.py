@@ -1,24 +1,23 @@
 class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
         '''
-        The Basic idea is => Total Sum - Global Minimum
+        This is version of Kadane's Algorithm
+        There are two ways by which we could get the answer -> with circular array OR Not overlapping
+        So the idea is => Total Sum = Max Sum of subarray + Min Sum of subarray
+        Ans would be max(MaxSum of array using Kadane's, Total Sum - Min Sum of subarray)
         '''
-        if len(nums) == 1:
-            return nums[0]
-        gMin = nums[0]
-        gMax = nums[0]
         currMax = nums[0]
-        currMin = nums[0]
-        total = nums[0]
+        maxSum = nums[0]
+        currMin = float('inf')
+        total_sum = sum(nums)
+        minSum = float('inf')
+        n = len(nums)
 
-        for i in nums[1:]:
-            total += i
-            currMax = max(i,currMax + i)
-            gMax = max(gMax,currMax)
-            currMin = min(i,currMin + i)
-            gMin = min(gMin,currMin)
-
-        if gMax < 0:
-            return gMax
-        else:
-            return max(total-gMin,gMax)
+        for i in range(1,n):
+            currMax = max(nums[i],nums[i]+currMax)
+            maxSum = max(maxSum,currMax)
+            currMin = min(nums[i],nums[i]+currMin)
+            minSum = min(minSum,currMin)
+        ans = max(maxSum,total_sum - minSum)
+        return ans   
+        
