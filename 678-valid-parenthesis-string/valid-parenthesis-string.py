@@ -1,36 +1,31 @@
 class Solution:
-    def checkValidString(self, s: str) -> bool:
-        '''
-        Since * -> has multiple options
-        Whenever we have options -> Try Recursion + memoization.
-        It has multiple approaches but the ideal is DP
-        '''
-        if s[0] == ')':
-            return False
-        memo = {}
-        
-        def solve(i,open_count):
-            if open_count < 0:
-                return False
+    def checkValidString(self, s: str) -> bool: 
+        stack = [] # (index)
+        star = [] # (index)
+        n = len(s)
 
-            if i == len(s):
-                return open_count == 0
-
-            if (i,open_count) in memo:
-                return memo[(i,open_count)]
-
-
+        for i in range(n):
             if s[i] == '(':
-                isValid = solve(i + 1,open_count + 1) 
+                stack.append(i)
             elif s[i] == '*':
-                isValid = (solve(i + 1,open_count + 1) or solve(i + 1,open_count - 1) or
-                            solve(i + 1,open_count) ) 
+                star.append(i)
             else:
-                isValid = solve(i + 1,open_count - 1)
-            
-            memo[(i,open_count)] = isValid
-            return isValid
+                if len(stack) <= 0 and len(star) <= 0:
+                    return False
+                else:
+                    if len(stack) > 0:
+                        stack.pop()
+                    elif len(star) > 0:
+                        star.pop()
         
-        return solve(0,0)
+        while len(stack) > 0 and len(star) > 0:
+            index = stack.pop()
+            index2 = star.pop()
+            if index2 < index:
+                return False
+        
+        return len(stack) == 0
 
+
+        
         
