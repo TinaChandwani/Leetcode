@@ -20,18 +20,18 @@ class Solution:
                     continue
             result += i
         
-        if open_count == 0:
-            return result
-        else:
-            for j in range(len(result)-1,-1,-1):
-                if result[j] == ')':
-                    close_count += 1
-                elif result[j] == '(':
-                    if close_count > 0:
-                        close_count -= 1
-                    else:
-                        continue
-                final_result += result[j]
+        # if open_count == 0:
+        #     return result
+        # else:
+        for j in range(len(result)-1,-1,-1):
+            if result[j] == ')':
+                close_count += 1
+            elif result[j] == '(':
+                if close_count > 0:
+                    close_count -= 1
+                else:
+                    continue
+            final_result += result[j]
                 
         return final_result[::-1]
 
