@@ -1,31 +1,23 @@
 class Solution:
-    def checkValidString(self, s: str) -> bool: 
-        stack = [] # (index)
-        star = [] # (index)
-        n = len(s)
-
-        for i in range(n):
-            if s[i] == '(':
-                stack.append(i)
-            elif s[i] == '*':
-                star.append(i)
+    def checkValidString(self, s: str) -> bool:
+        o,c = 0,0
+        for i in s:
+            if i == "*" or i == '(':
+                o += 1
             else:
-                if len(stack) <= 0 and len(star) <= 0:
-                    return False
+                if o > 0:
+                    o -= 1
                 else:
-                    if len(stack) > 0:
-                        stack.pop()
-                    elif len(star) > 0:
-                        star.pop()
+                    return False
         
-        while len(stack) > 0 and len(star) > 0:
-            index = stack.pop()
-            index2 = star.pop()
-            if index2 < index:
-                return False
+        for j in range(len(s)-1,-1,-1):
+            if s[j] == '*' or s[j] == ')':
+                c += 1
+            else:
+                if c > 0:
+                    c -= 1
+                else:
+                    return False
         
-        return len(stack) == 0
-
-
-        
+        return True
         
