@@ -1,29 +1,26 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        wordList = defaultdict(int)
-        groudTruth = defaultdict(int)
-        left = 0
-        right = 0
+        aDict = defaultdict(int)
+        pDict = defaultdict(int)
         n = len(s)
-        plen = len(p)
-        output = []
-        # Base Case
-        if len(p) > len(s):
-            return []
+        k = len(p)
+        ans = []
+        l = 0
+        r = 0
         
-        for ch in p:
-            groudTruth[ch] += 1
+        for i in p:
+            pDict[i] += 1
+
+        while r < n:
+            aDict[s[r]] += 1
+            if r - l + 1 > k:
+                aDict[s[l]] -= 1
+                if aDict[s[l]] == 0:
+                    del aDict[s[l]]
+                l += 1
+            if r - l + 1 == k and aDict == pDict:
+                ans.append(l)
+            r += 1
+
+        return ans
         
-        while right < n:
-            wordList[s[right]] += 1
-            if right - left + 1 > plen:
-                wordList[s[left]] -= 1
-                if wordList[s[left]] == 0:
-                    del wordList[s[left]]
-                left += 1
-            if right - left + 1 == plen:
-                if wordList == groudTruth:
-                    output.append(left)
-            right += 1
-        
-        return output
