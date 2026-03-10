@@ -1,16 +1,20 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        if k <= 0:
-            return False
+        dDict = defaultdict(int)
+        active = set()
+        l = 0
+        r = 0
         n = len(nums)
-        last = {}
-        i = 0
-        while i < n:
-            x = nums[i]
-            if x in last:
-                limit = last[x]
-                if abs(i - limit) <= k and nums[i] == nums[limit]:
+
+        while r < n:
+            if abs(r-l) <= k:
+                if nums[r] not in active:
+                    active.add(nums[r])
+                else:
                     return True
-            last[x] = i 
-            i += 1
+                r += 1
+            else:
+                active.remove(nums[l])
+                l += 1
+        
         return False
