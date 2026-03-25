@@ -26,6 +26,7 @@ class Solution:
                     if s2Dict[s2[l]] == 0:
                         del s2Dict[s2[l]]
                 l += 1
+            
             if s1Dict == s2Dict:
                 return True
             
