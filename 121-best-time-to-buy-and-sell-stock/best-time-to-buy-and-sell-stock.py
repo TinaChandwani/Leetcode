@@ -1,11 +1,17 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        i = 0
+        stack = []
+        r = 0
         n = len(prices)
-        maxProfit = 0
-        for j in range(1,n):
-            proft = prices[j]-prices[i]
-            maxProfit = max(maxProfit,proft)
-            if prices[i] >= prices[j]:
-                i = j
-        return maxProfit
+        diff = 0
+
+        while r < n:
+            while stack and stack[-1] > prices[r]:
+                stack.pop()
+            if not stack:
+                stack.append(prices[r])
+            else:
+                diff = max(diff, prices[r] - stack[-1])
+            r += 1
+        
+        return diff
