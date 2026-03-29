@@ -21,7 +21,7 @@ class Solution:
         i = left_most(0,len(nums)-1)
         j = right_most(0,len(nums)-1)
         
-        if i <= j and nums[i] == target:
+        if i <= j and nums[j] == target:
             return [i,j]
 
         return [-1,-1]
