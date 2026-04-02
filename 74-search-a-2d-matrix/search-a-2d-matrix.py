@@ -1,38 +1,36 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        '''
-        Basically the approach is :
-        1. Do a binary search for the rows
-        2. Do a binary search in that row
-        '''
         if not matrix or not matrix[0]:
             return False
-        n = len(matrix) # rows
-        m = len(matrix[0]) #cols
-        gl = 0
-        gr = n - 1
-        res_row = -1
-        def bs(l,r,row):
-            while r >= l:
-                m = (l + r) // 2
-                if target == matrix[row][m]:
-                    return True
-                elif target < matrix[row][m]:
-                    r = m - 1
-                else:
-                    l = m + 1
-            return False
-            
-        while gr >= gl:
-            mr = (gl + gr) // 2
-            if matrix[mr][0] <= target <= matrix[mr][m-1]:
-                res_row = mr
-                break
-            elif matrix[mr][0] < target:
-                gl = mr + 1
-            else:
-                gr = mr - 1
-        
-        return res_row!=-1 and bs(0,m-1,res_row)
 
-       
+        def row_find(l,r):
+            while l <= r:
+                m = l + (r-l) // 2
+                if matrix[m][0] == target:
+                    return m
+                elif matrix[m][0] < target:
+                    l = m + 1
+                else:
+                    r = m - 1
+            return r
+        
+        row = row_find(0,len(matrix) - 1)
+        col = len(matrix[0])
+
+        if row < 0:
+            return False
+        # l = matrix[row][0]
+        # r = matrix[row][col]
+        left = 0
+        right = col - 1
+
+        while left <= right:
+            m = left + (right - left) // 2
+            if matrix[row][m] == target:
+                return True
+            elif matrix[row][m] < target:
+                left = m + 1
+            else:
+                right = m - 1
+        
+        return False
