@@ -1,39 +1,37 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         '''
-        Basic Approach:
-        1. Find k (which is minimum in rotated sorted array)
-        2) Apply Binary Search from [l:k][k:r] 
+        Find the minimum element in the array => pivot
+        do different binary search
+        (0,pivot) (pivot + 1, len(nums)-1)
         '''
-        def findk(l,r):
-            while l < r:
-                m = (l + r) // 2
-                if nums[m] > nums[r]:
-                    l = m + 1
-                else:
-                    r = m
-            return l
-        
-        def bs(l,r):
+        def b_s(l,r):
             while l <= r:
-                m = (l+r) // 2
+                m = l + (r-l) // 2
                 if nums[m] == target:
                     return m
-                elif target < nums[m]:
+                elif nums[m] > target:
                     r = m - 1
                 else:
                     l = m + 1
             return -1
+
+        def min(l,r):
+            while l < r:
+                m = l + (r-l) // 2
+                if nums[m] > nums[r]:
+                    l = m + 1
+                else:
+                    r = m
+            return r  
         
-        n = len(nums)
-        left = 0
-        right = n - 1
-        k = findk(left,right)
-        a = bs(left,k)
-        b = bs(k,right)
-        if a != -1:
-            return a
-        elif b != -1:
-            return b
-        else:
+        min_element = min(0,len(nums)-1)
+        first_half = b_s(0,min_element - 1)
+        second_half = b_s(min_element,len(nums)-1)
+
+        if first_half == -1 and second_half == -1:
             return -1
+        elif first_half == -1:
+            return second_half
+        else:
+            return first_half
