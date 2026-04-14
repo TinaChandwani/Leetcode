@@ -1,11 +1,9 @@
 class Solution:
     def maxValue(self, n: int, index: int, maxSum: int) -> int:
         def getSum(count,x):
-            if count <= 0:
-                return 0
-            if count < x:
-                return count * (2 * x - count + 1) // 2
-            return x * (x + 1) // 2 + (count - x)
+            if count <= x:
+                return ((2 * x - count + 1) * count) // 2
+            return (x * (x + 1)) // 2 + (count - x)
         
         l = 1
         r = maxSum
