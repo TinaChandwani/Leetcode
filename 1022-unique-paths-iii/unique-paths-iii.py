@@ -10,6 +10,8 @@ class Solution:
         count_of_zero = 0
 
         def backtrack(x,y,c):
+            if grid[x][y] == -1:
+                return 
             if grid[x][y] == 2:
                 if c == count_of_zero + 1:
                     return 1
@@ -29,9 +31,6 @@ class Solution:
             
             grid[x][y] = temp
             return paths
-
-            
-            
 
         for i in range(m):
             for j in range(n):
