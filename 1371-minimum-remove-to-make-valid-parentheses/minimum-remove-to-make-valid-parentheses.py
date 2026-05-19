@@ -1,38 +1,28 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-        '''
-        Using counts:
-            - keeping count for open_count from left to right and
-            - then count for close_count from right to left
-        '''
-        result = ''
-        final_result = ''
-        open_count = 0
-        close_count = 0
+        res = ''
+        final_res = ''
+        oc = 0
+        cc = 0
 
         for i in s:
             if i == '(':
-                open_count += 1
+                oc += 1
             elif i == ')':
-                if open_count > 0:
-                    open_count -= 1
+                if oc > 0:
+                    oc -= 1
                 else:
                     continue
-            result += i
+            res += i
         
-        # if open_count == 0:
-        #     return result
-        # else:
-        for j in range(len(result)-1,-1,-1):
-            if result[j] == ')':
-                close_count += 1
-            elif result[j] == '(':
-                if close_count > 0:
-                    close_count -= 1
+        for j in range(len(res)-1,-1,-1):
+            if res[j] == ')':
+                cc += 1
+            elif res[j] == '(':
+                if cc > 0:
+                    cc -= 1
                 else:
                     continue
-            final_result += result[j]
-                
-        return final_result[::-1]
-
+            final_res += res[j]
         
+        return final_res[::-1]
