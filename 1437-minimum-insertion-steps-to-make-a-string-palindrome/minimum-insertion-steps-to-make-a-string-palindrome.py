@@ -9,9 +9,9 @@ class Solution:
                 return memo[(l,r)]
 
             if s[l] != s[r]:
-                left =  1 + solve(l,r-1)
-                right = 1 + solve(l+1,r)
-                res = min(left,right)
+                left =  solve(l,r-1)
+                right = solve(l+1,r)
+                res = 1 + min(left,right)
             else:
                 res = solve(l+1,r-1)
             
