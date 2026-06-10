@@ -1,23 +1,19 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         '''
-        time : O(length of text1 * length of text 2)
-        space (length of text1 * length of text 2)
+        Bottom Up Approach
+        t[i][j]:- longest common subsequence between s1 of len i and s2 of len j
+        i , j are length not index, that's how we have defined it
         '''
-        # base case
-        memo = {}
-        def dp(i,j):
-            if i == len(text1) or j == len(text2):
-                return 0
-            
-            if (i,j) in memo:
-                return memo[(i,j)]
-            
-            if text1[i] == text2[j]:
-                memo[(i,j)] = 1 + dp(i+1,j+1)
-            else:
-                memo[(i,j)] = max(dp(i+1,j),dp(i,j+1))
-            
-            return memo[(i,j)]
+        m = len(text1)
+        n = len(text2)
+        t = [[0 for _ in range(n + 1)] for k in range(m + 1)]
+
+        for i in range(1,m + 1):
+            for j in range(1,n + 1):
+                if text1[i-1] == text2[j-1]:
+                    t[i][j] = 1 + t[i-1][j-1]
+                else:
+                    t[i][j] = max(t[i][j-1],t[i-1][j])
         
-        return dp(0,0)
+        return t[m][n]
