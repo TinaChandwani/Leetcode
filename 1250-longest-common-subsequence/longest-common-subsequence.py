@@ -1,5 +1,9 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        '''
+        time : O(length of text1 * length of text 2)
+        space (length of text1 * length of text 2)
+        '''
         # base case
         memo = {}
         def dp(i,j):
