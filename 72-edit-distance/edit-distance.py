@@ -10,26 +10,25 @@ class Solution:
             if j == len(word2):
                 return (len(word1) - i)  # deletions
             
-            if word1[i] == word2[j]:
-                return dp(i + 1, j + 1)
-            
             if (i,j) in memo:
                 return memo[(i,j)]
+            
+            if word1[i] == word2[j]:
+                memo[(i,j)] = dp(i + 1, j + 1)
+            else:
 
-            # Perfom all operations
+                # Perfom all operations
 
-            # insert
-            c = 1 + dp(i, j + 1)
+                # insert
+                c = 1 + dp(i, j + 1)
 
-            # delete
-            c1 = 1 + dp(i + 1, j)
+                # delete
+                c1 = 1 + dp(i + 1, j)
 
-            # replace
-            c2 = 1 + dp(i + 1, j + 1)
-
-            ans = min(c,c1,c2)
-            memo[(i,j)] = ans
-
-            return ans
+                # replace
+                c2 = 1 + dp(i + 1, j + 1)
+                memo[(i,j)] = min(c,c1,c2)
+                
+            return memo[(i,j)]
 
         return dp(0, 0)
