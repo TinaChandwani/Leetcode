@@ -29,8 +29,7 @@ class Solution:
                     heapq.heappush(heap,(second,c2))
             if first != 0:
                 heapq.heappush(heap,(first,c))
-            
-        
+
         return ans
             
 
