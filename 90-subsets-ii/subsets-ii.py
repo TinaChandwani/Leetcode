@@ -1,17 +1,21 @@
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        nums.sort()
         def backtrack(idx,curr,res):
+            nums.sort()
             res.append(curr[:])
-            
-            dup = set()
 
-            for i in range(idx,len(nums)):
-                if nums[i] not in dup:
-                    curr.append(nums[i])
-                    backtrack(i+1,curr,res)
+            if idx == len(nums):
+                return
+
+            visit = set()
+
+            for j in range(idx,len(nums)):
+                if nums[j] not in visit:
+                    curr.append(nums[j])
+                    backtrack(j + 1, curr, res)
                     curr.pop()
-                    dup.add(nums[i])
+                    visit.add(nums[j])
+                    
             
             return res
         
