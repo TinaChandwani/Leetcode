@@ -7,21 +7,33 @@
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         '''
-        Recursion
         Root -> left -> right
         '''
         if root is None:
             return []
         
-        ans = []
+        curr = root
+        visit = set()
+        res = []
 
-        ans.append(root.val)
 
-        if root.left:
-            ans.extend(self.preorderTraversal(root.left))
+        while curr:
+            if curr not in visit:
+                visit.add(curr)
+                res.append(curr.val)
+            if curr.left is None:     
+                curr = curr.right
+            else:
+                leftchild = curr.left
+                while leftchild.right:
+                    leftchild = leftchild.right
+                
+                leftchild.right = curr
+
+                # set the node to null
+                temp = curr
+                curr = curr.left
+                temp.left = None
         
-        if root.right:
-            ans.extend(self.preorderTraversal(root.right))
-        
-        return ans
-        
+        return res
+
