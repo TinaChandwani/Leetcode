@@ -13,27 +13,24 @@ class Solution:
             return []
         
         curr = root
-        visit = set()
         res = []
 
 
         while curr:
-            if curr not in visit:
-                visit.add(curr)
-                res.append(curr.val)
+            res.append(curr.val)
             if curr.left is None:     
                 curr = curr.right
             else:
                 leftchild = curr.left
                 while leftchild.right:
                     leftchild = leftchild.right
-                
-                leftchild.right = curr
 
-                # set the node to null
-                temp = curr
+                if curr.right:
+                    leftchild.right = curr.right
+                    # set the node to null
+                    temp = curr
+                    temp.right = None
                 curr = curr.left
-                temp.left = None
-        
+                
         return res
 
