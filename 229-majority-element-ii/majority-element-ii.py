@@ -1,37 +1,45 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        first, second = None, None
+        '''
+        we need n / 3 times -> atmost 2 elements
+        '''
+        candidate1 = None
+        candidate2 = None
+        c1 = 0
+        c2 = 0
+        maj = len(nums) / 3
         ans = []
-        count1,count2 = 0,0
-        for i in nums:
-            if i == first:
-                count1 += 1
-            elif i == second:
-                count2 += 1
-            elif count1 == 0:
-                first = i
-                count1 = 1
-            elif count2 == 0:
-                second = i
-                count2 = 1
-            else:
-                count1 -= 1
-                count2 -= 1
-        
-        c1 ,c2 = 0,0
-        for j in nums:
-            if j == first:
+
+        for num in nums:
+            if num == candidate1:
                 c1 += 1
-            if j == second:
+            elif num == candidate2:
+                c2 += 1
+            elif c1 == 0:
+                candidate1 = num
+                c1 = 1
+            elif c2 == 0:
+                candidate2 = num
+                c2 = 1
+            else:
+                c1 -= 1
+                c2 -= 1
+        
+        # pass 2 : verify (since we need atmost 2)
+
+        c1 = 0
+        c2 = 0
+
+        for num in nums:
+            if num == candidate1:
+                c1 += 1
+            elif num == candidate2:
                 c2 += 1
         
-        n = len(nums)
-        maj = int(n // 3)
         if c1 > maj:
-            ans.append(first)
-        if second != first and c2 > maj:
-            ans.append(second)
+            ans.append(candidate1)
+        
+        if c2 > maj:
+            ans.append(candidate2)
         
         return ans
-
-        
