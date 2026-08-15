@@ -1,15 +1,21 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        r = 0
-        i = 0
-        n = len(nums) - 1
-        end = 0
-        jumps = 0
+        if len(nums) == 1:
+            return 0
+        res = 0
+        maxJ = 0
+        currentend = 0
+        last = len(nums) - 1
 
-        while i < n and r < n:
-            end = max(end, i + nums[i])
-            if i == r:
-                jumps += 1
-                r = end
-            i += 1
-        return jumps
+        for i in range(len(nums)):
+            max_jumps = nums[i] + i
+            maxJ = max(maxJ,max_jumps)
+
+            if i == currentend:
+                res += 1
+                currentend = maxJ
+
+            if currentend >= last:
+                break
+
+        return res
