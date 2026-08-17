@@ -1,66 +1,60 @@
 class Solution:
-    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        '''
-        Create a graph where the characters in the equations are nodes 
-        and values are the values a-2-> b -3->c so on...
-        so create a adjacency list for the above graph and do bfs on the
-        queries list
-        '''
-        # Creating Adjacency List (Hashmap)
-        adj = {}
-        for i in range(len(equations)):
-            a = equations[i][0]
-            b = equations[i][1]
-            if a not in adj:
-                adj[a] = []
-            adj[a].append((b,values[i]))
-            if b not in adj:
-                adj[b] = []
-            adj[b].append((a,(1.0 / values[i])))
-        
-        print(f'adj {adj}')
 
-        def bfs(i,j):
-            print(f'i {i} and j {j}')
-            # i = a and j = c
-            if i not in adj or j not in adj:
-                return -1.0
-            if i == j:
-                return 1.0
-            q = deque() #(node,val)
-            q.append([i,1.0])
-            visit = set() # a b c
-            while q:
-                node,val = q.popleft() # c, 12
-                if node == j:
-                    return val
-                if node in visit:
-                    continue
-                visit.add(node)
-                for nodes in range(len(adj[node])):
-                    element = adj[node][nodes][0] # d
-                    element_value = adj[node][nodes][1] #20
-                    if element == j:
-                        prod = val * element_value
-                        return prod
-                    if element in visit:
-                        continue
-                    prod = val * element_value # 240
-                    q.append([element,prod])
-                    
+    def findDivision(self,start,dest,adj):
+        # {'a': [('b', 2.0)], 'b': [('c', 3.0)]})
+        # start : b and dest : a
+        if start not in adj or dest not in adj:
             return -1.0
-        # Write BFS on the list
+        
+        if start == dest:
+            return 1.0
+
+        q = deque()
+        q.append((start,1.0)) # node, val
+        visit = set()
+
+        while q:
+            node,val = q.popleft()
+            if node == dest:
+                return val
+            if node in visit:
+                continue
+            visit.add(node)
+            for n in range(len(adj[node])):
+                element = adj[node][n][0] # b
+                ele_value = adj[node][n][1] # 2.0
+                if element == dest:
+                    return val * ele_value
+                if element in visit:
+                    continue
+                prod = val * ele_value
+                q.append((element,prod))
+        
+        return -1.0
+
+         
+
+
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+
+        adj = defaultdict(list)
         ans = []
-        for query in range(len(queries)):
-            i = queries[query][0]
-            j = queries[query][1]
-            output = bfs(i,j)
-            ans.append(output)
+
+        # build a adj list
+        for e in range(len(equations)):
+            i,j = equations[e][0], equations[e][1]
+            adj[i].append((j,values[e]))
+            adj[j].append((i,1 / values[e]))
+        
+        print(adj)
+        
+        
+        for q in range(len(queries)):
+            path = self.findDivision(queries[q][0],queries[q][1],adj)
+            ans.append(path)
+        
         return ans
 
-       
-                    
 
 
 
-                
