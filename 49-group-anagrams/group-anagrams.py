@@ -1,22 +1,23 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        groupDict = {}
-        output = []
-        n = len(strs)
+        '''
+        Approach 1 : Sort every string
+        sorted string : {strings}
+        aet : {eat,tea,ate}
+        TC : k(nlogn) n is max len(string) and k is number of strings
+        '''
 
-        for i in range(n):
-            word = strs[i]
-            group = [0] * 26
-            for j in word:
-                x = ord(j) - ord('a')
-                group[x] += 1
-            group = tuple(group)
-            if group in groupDict.keys():
-                groupDict[group].append(word)
+        sDict = {}
+        res = []
+
+        for i in strs:
+            sorted_i = "".join(sorted(i))
+            if sorted_i not in sDict:
+                sDict[sorted_i] = [i]
             else:
-                groupDict[group] = [word]
+                sDict[sorted_i].append(i)
         
-        for j in groupDict.values():
-            output.append(j)
+        for k in sDict.values():
+            res.append(k)
         
-        return output
+        return res
